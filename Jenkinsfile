@@ -4,8 +4,17 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Pipeline running from GitHub Jenkinsfile'
+                echo 'Running build stage'
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build completed successfully!'
+        }
+        failure {
+            echo 'Build failed!'
         }
     }
 }
