@@ -2,17 +2,33 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+
+        stage('Checkout') {
             steps {
-                echo 'Running build stage'
+                git 'https://github.com/KevinAbraham07/Jenkins.git'
+            }
+        }
+
+        stage('Compile') {
+            steps {
+                bat 'javac Hello.java'
+            }
+        }
+
+        stage('Run') {
+            steps {
+                bat 'java Hello'
+            }
+        }
+
+        stage('Archive') {
+            steps {
+                archiveArtifacts artifacts: '*.class'
             }
         }
     }
 
     post {
-        success {
-            echo 'Build completed successfully!'
-        }
         failure {
             echo 'Build failed!'
         }
